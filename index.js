@@ -14,6 +14,11 @@ app.use(bodyParser.json());
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Servir archivos estáticos desde las carpetas 'views' y 'img'
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/views', express.static(path.join(__dirname, 'views')));
+app.use('/img', express.static(path.join(__dirname, 'img')));
+
 app.use('/auth', authRoutes);
 app.use('/restricted', restrictedRoutes);
 
@@ -21,5 +26,7 @@ app.use('/restricted', restrictedRoutes);
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'index.html'));
 });
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, console.log(`🔥Server on 🔥 http://localhost:${PORT}`));

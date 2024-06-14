@@ -13,11 +13,18 @@ export const login = (req, res) => {
     const token = jwt.sign({ email: agent.email }, secretKey, { expiresIn: '2m' });
     console.log(`Token generated: ${token}`);
     res.send(`
-      <p>Email: ${agent.email}</p>
-      <script>
-        sessionStorage.setItem('token', '${token}');
-      </script>
-      <a href="/restricted">Go to restricted area</a>
+      <html>
+        <head>
+          <title>Agent Authorized</title>
+        </head>
+        <body>
+          <p>Email: ${agent.email}</p>
+          <script>
+            sessionStorage.setItem('token', '${token}');
+          </script>
+          <a href="/restricted?token=${token}">Go to restricted area</a>
+        </body>
+      </html>
     `);
   } else {
     console.log('Unauthorized access attempt');

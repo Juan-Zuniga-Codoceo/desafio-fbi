@@ -13,10 +13,17 @@ export const accessRestricted = (req, res) => {
     } else {
       console.log(`Token verified, welcome: ${decoded.email}`);
       res.send(`
-        <p>Welcome, ${decoded.email}</p>
-        <script>
-          localStorage.setItem('email', '${decoded.email}');
-        </script>
+        <html>
+          <head>
+            <title>Welcome</title>
+          </head>
+          <body>
+            <p>Welcome, ${decoded.email}</p>
+            <script>
+              localStorage.setItem('email', '${decoded.email}');
+            </script>
+          </body>
+        </html>
       `);
     }
   });
